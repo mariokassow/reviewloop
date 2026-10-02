@@ -1,0 +1,6 @@
+{
+  "name": "ReviewLoop",
+  "description": "Study pacing engine, spaced repetition (SRS), and cognitive error tracking platform with buffer-smoothed scheduling.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

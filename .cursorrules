@@ -1,0 +1,40 @@
+# Cursor Rules for ReviewLoop (Apex SRS)
+# Study Pacing Engine & Leitner SRS Platform with Cognitive Taxonomy
+
+## 🎯 Project Overview & Philosophy
+ReviewLoop is a universal, domain-agnostic study pacing, error log analysis, and Leitner Spaced Repetition (SRS) platform.
+It is built with React 19, TypeScript, Vite, and Tailwind CSS v4.
+
+### Key Tenets:
+1. **Mathematical Buffer Pacing**: Never assume static linear study. Factor in emergency buffer days (10–20%) to dynamically recalculate daily quotas without student panic.
+2. **Cognitive Error Taxonomy**: Errors are NOT created equal. Every mistake is classified into 4 pillars:
+   - `THEORY`: Concept gap, formula missing, theorem forgotten.
+   - `ATTENTION`: Misread qualifier ("NOT/EXCEPT"), trap distractor, careless reading.
+   - `CALCULATION`: Sign flip, arithmetic blunder, algebra slip, unit mismatch.
+   - `TIME`: Clock pressure, rushed guessing, panic under timer.
+3. **Leitner SRS Stages**: `SAME_DAY` -> `INTERVAL_3` (3 days) -> `INTERVAL_7` (7 days) -> `GRADUATED` (14-30 days).
+4. **Domain Agnosticism**: No hardcoded exam names or subjects. Dynamically extract subjects and hash deterministic color palettes using `src/lib/subjectUtils.ts`.
+5. **Zero Proprietary Lock-In**: Works anywhere (Cursor, Lovable, v0, Bolt, Claude, ChatGPT, Local Vite, Netlify, Vercel).
+
+---
+
+## 🛠️ Code Conventions & Architecture
+
+### 1. File Structure
+- `src/types/index.ts`: Strict TypeScript models (`StudyGoal`, `Material`, `Chapter`, `Question`, `MockExam`, `SRSStage`, `ErrorReason`).
+- `src/lib/pacingEngine.ts`: Pure mathematical pacing engine (`calculatePacingSchedule`, `calculateDailyMetrics`).
+- `src/lib/srsEngine.ts`: Spaced repetition algorithms, priority scoring, Leitner stage transitions.
+- `src/lib/subjectUtils.ts`: Dynamic subject extraction, exam score calculations (%, Raw, Scaled), and deterministic theme palettes.
+- `src/lib/storage.ts`: LocalStorage management with seamless JSON/CSV/Anki export.
+- `src/components/`: Modular React components.
+
+### 2. Styling Rules
+- Use modern Tailwind CSS classes.
+- Support both Light and Dark modes (`dark:` variants).
+- Use `lucide-react` for clean iconography.
+- Maintain high contrast, accessible typography (`Plus Jakarta Sans` and `JetBrains Mono`).
+
+### 3. State & Persistence Rules
+- Keep client-side state synchronized with LocalStorage via `src/lib/storage.ts`.
+- Ensure graceful fallbacks when data is empty (`[]`).
+- Support single and batch question logging.
